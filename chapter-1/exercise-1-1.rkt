@@ -7,6 +7,7 @@
 ; the order in which it is presented.
 |#
 
+; ANSWER AS COMMENTS:
 10 ; 10
 
 (+ 5 3 4) ; 12

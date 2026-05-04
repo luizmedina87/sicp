@@ -6,6 +6,7 @@ as arguments and returns the sum of the squares of the two
 larger numbers.
 |#
 
+; ANSWER:
 (define (square a) (* a a))
 
 (define (sum-of-squares a b) (+ (square a) (square b)))

@@ -11,7 +11,7 @@ following procedure:
   ((if (> b 0) + -) a b))
 
 #|
-The function evaluates the combination (+ a b) if b > 0, 
+ANSWER: The function evaluates the combination (+ a b) if b > 0, 
 and (- a b) otherwise. This is equivalente to returning
 a + |b| since it makes b positive in case it is a negative
 number.
