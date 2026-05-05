@@ -1,3 +1,5 @@
+#lang sicp
+
 #|
 Exercise 1.6: Alyssa P. Hacker doesn’t see why if needs to
 be provided as a special form. “Why can’t I just define it as
@@ -11,8 +13,8 @@ Eva demonstrates the program for Alyssa:
 |#
 
 (new-if (= 2 3) 0 5)
-5
-0
+; 5
+; 0
 (new-if (= 1 1) 0 5)
 
 #|
