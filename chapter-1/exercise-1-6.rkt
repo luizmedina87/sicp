@@ -6,16 +6,18 @@ be provided as a special form. “Why can’t I just define it as
 an ordinary procedure in terms of cond?” she asks. Alyssa’s
 friend Eva Lu Ator claims this can indeed be done, and she
 defines a new version of if:
-(define (new-if predicate then-clause else-clause)
-(cond (predicate then-clause)
-(else else-clause)))
-Eva demonstrates the program for Alyssa:
 |#
+
+(define (new-if predicate then-clause else-clause)
+  (cond (predicate then-clause)
+        (else else-clause)))
+
+; Eva demonstrates the program for Alyssa:
 
 (new-if (= 2 3) 0 5)
 ; 5
-; 0
 (new-if (= 1 1) 0 5)
+; 0
 
 #|
 Delighted, Alyssa uses new-if to rewrite the square-root
