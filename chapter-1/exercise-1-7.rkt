@@ -134,20 +134,17 @@ above.
 
 ; Test cases
 (define (close-enough? a b)
-  (< (abs (- a b)) 0.1))
+  (< (abs (/ (- a b) b)) 0.001))
 
 ; Small numbers
-(display (close-enough? (square (sqrt 0.0001))  0.0001))  (newline)
-(display (close-enough? (square (sqrt 0.002))   0.002))   (newline)
+(display (close-enough? (square (sqrt 0.0001)) 0.0001)) (newline)
+(display (close-enough? (square (sqrt 0.002)) 0.002)) (newline)
 (display (close-enough? (square (sqrt 0.00001)) 0.00001)) (newline)
 
 ; Large numbers
 (display (close-enough? (square (sqrt 65432546546987654)) 65432546546987654)) (newline)
-(display (close-enough? (square (sqrt 1000000000))        1000000000))        (newline)
+(display (close-enough? (square (sqrt 1000000000)) 1000000000)) (newline)
 
 ; Edge cases
 (display (close-enough? (square (sqrt 1)) 1.0)) (newline)
 (display (close-enough? (square (sqrt 2)) 2.0)) (newline)
-
-(display (- (square (sqrt 65432546546987654)) 65432546546987654)) (newline)
-(display (- (square (sqrt 1000000000))        1000000000))        (newline)
