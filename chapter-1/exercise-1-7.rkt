@@ -75,6 +75,8 @@ above.
 
 (define (sqrt x)
   (sqrt-iter 1.0 x))
+
+(sqrt 12341234132)
 |#
 
 ; EXAMPLE FOR A SMALL NUMBER (UNCOMMENT TO RUN)
@@ -106,3 +108,46 @@ above.
 
 (verbose-sqrt 65432546546987654)
 |#
+
+; DESING FOR THE SQUARE ROOT PROCEDURE USING THE DIFFERENT GOODENOUGH? TEST
+
+(define (square x)
+  (* x x))
+
+(define (average x y)
+  (/ (+ x y) 2))
+
+(define (improve guess x)
+  (average guess (/ x guess)))
+
+(define (good-enough? guess improved-guess)
+  (< (abs (- (/ improved-guess guess) 1.0)) 0.001))
+
+(define (sqrt-iter guess x)
+  (define improved-guess (improve guess x))
+  (if (good-enough? guess improved-guess)
+      guess
+      (sqrt-iter improved-guess x)))
+
+(define (sqrt x)
+  (sqrt-iter 1.0 x))
+
+; Test cases
+(define (close-enough? a b)
+  (< (abs (- a b)) 0.1))
+
+; Small numbers
+(display (close-enough? (square (sqrt 0.0001))  0.0001))  (newline)
+(display (close-enough? (square (sqrt 0.002))   0.002))   (newline)
+(display (close-enough? (square (sqrt 0.00001)) 0.00001)) (newline)
+
+; Large numbers
+(display (close-enough? (square (sqrt 65432546546987654)) 65432546546987654)) (newline)
+(display (close-enough? (square (sqrt 1000000000))        1000000000))        (newline)
+
+; Edge cases
+(display (close-enough? (square (sqrt 1)) 1.0)) (newline)
+(display (close-enough? (square (sqrt 2)) 2.0)) (newline)
+
+(display (- (square (sqrt 65432546546987654)) 65432546546987654)) (newline)
+(display (- (square (sqrt 1000000000))        1000000000))        (newline)
