@@ -53,9 +53,9 @@ magnitude of the input, avoiding both failure modes described
 above.
 |#
 
+#|
 ; TEST FUNCTIONS (UNCOMMENT TO RUN EXAMPLES)
 
-#|
 (define (square x)
   (* x x))
 
@@ -79,9 +79,9 @@ above.
 (sqrt 12341234132)
 |#
 
+#|
 ; EXAMPLE FOR A SMALL NUMBER (UNCOMMENT TO RUN)
 
-#|
 (define small-sqrt (sqrt 0.002))
 (display "Square-root of 0.002 using the 0.001 precision parameter: ")
 (display small-sqrt)
@@ -93,9 +93,9 @@ above.
 (display (- (square small-sqrt) 0.002))
 |#
 
+#| 
 ; EXAMPLE FOR A BIG NUMBER (UNCOMMENT TO RUN)
 
-#|
 (define (verbose-sqrt-iter guess x)
   (display guess)
   (newline)
@@ -109,7 +109,15 @@ above.
 (verbose-sqrt 65432546546987654)
 |#
 
-; DESING FOR THE SQUARE ROOT PROCEDURE USING THE DIFFERENT GOODENOUGH? TEST
+#| 
+; DESING FOR THE SQUARE ROOT PROCEDURE USING THE DIFFERENT
+; GOODENOUGH? TEST
+
+#| 
+Stopping when changes from one iteration to another is a small 
+fraction of the guess is an improvement over having an absolute
+value rule, avoiding the problems mentioned above.
+|#
 
 (define (square x)
   (* x x))
@@ -133,18 +141,22 @@ above.
   (sqrt-iter 1.0 x))
 
 ; Test cases
+(define (test-sqrt x)
+  (close-enough? (square (sqrt x)) x))
+
 (define (close-enough? a b)
-  (< (abs (/ (- a b) b)) 0.001))
+  (< (abs (- (/ a b) 1.0)) 0.01))
 
 ; Small numbers
-(display (close-enough? (square (sqrt 0.0001)) 0.0001)) (newline)
-(display (close-enough? (square (sqrt 0.002)) 0.002)) (newline)
-(display (close-enough? (square (sqrt 0.00001)) 0.00001)) (newline)
+(display (test-sqrt 0.0001)) (newline)
+(display (test-sqrt 0.002)) (newline)
+(display (test-sqrt 0.00001)) (newline)
 
 ; Large numbers
-(display (close-enough? (square (sqrt 65432546546987654)) 65432546546987654)) (newline)
-(display (close-enough? (square (sqrt 1000000000)) 1000000000)) (newline)
+(display (test-sqrt 65432546546987654)) (newline)
+(display (test-sqrt 1000000000)) (newline)
 
 ; Edge cases
-(display (close-enough? (square (sqrt 1)) 1.0)) (newline)
-(display (close-enough? (square (sqrt 2)) 2.0)) (newline)
+(display (test-sqrt 1)) (newline)
+(display (test-sqrt 2)) (newline)
+|#
