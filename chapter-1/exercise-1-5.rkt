@@ -21,7 +21,7 @@ uses applicative-order evaluation? What behavior will he
 observe with an interpreter that uses normal-order evalu-
 ation? Explain your answer. (Assume that the evaluation
 rule for the special form if is the same whether the in-
-terpreter is using normal or applicative order: e predi-
+terpreter is using normal or applicative order: the predi-
 cate expression is evaluated first, and the result determines
 whether to evaluate the consequent or the alternative ex-
 pression.)
