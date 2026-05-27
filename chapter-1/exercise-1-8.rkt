@@ -37,7 +37,7 @@ abstraction of these square-root and cube-root procedures.)
 (define (cube-root x)
   (cube-root-iter 1.0 x))
 
-#| ; Tests
+; Tests
 (define (test target expected)
   (if (> (abs (- target expected)) 0.001)
       (display (list 'failed 'expected expected 'got target))
@@ -45,7 +45,6 @@ abstraction of these square-root and cube-root procedures.)
       )
   (newline))
 
-; Run the tests
 (test (cube-root 8.0) 2.0) ; Standard
 (test (cube-root -27.0) -3.0) ; Negative
-(test (cube-root 0.125) 0.5) ; Edge case: Fraction |#
+(test (cube-root 0.125) 0.5) ; Edge case: Fraction
