@@ -80,8 +80,23 @@ simplify the next recursive expansions.
 ...
 65,536
 
-We can see that (A 2 n) = 2^(2^n).
+We can see that (A 2 n) = 2^^n.
 
+(define (A x y)
+  (cond ((= y 0) 0)
+        ((= x 0) (* 2 y))
+        ((= y 1) 2)
+        (else (A (- x 1) (A x (- y 1))))))
+
+(A 3 3)
+(A 2 (A 3 2))
+(A 2 (A 2 (A 3 1)))
+(A 2 (A 2 2))
+(A 2 (A 2 2)) -> (A 2 2) = 2^^2 = 4
+...
+(A 2 4) -> (A 2 4) = 2^^4 = 65,536
+...
+65,536
 |#
 
 (display "(A 1 10) -> ")
@@ -89,4 +104,7 @@ We can see that (A 2 n) = 2^(2^n).
 (newline)
 (display "(A 2 4) -> ")
 (display (A 2 4))
+(newline)
+(display "(A 3 3) -> ")
+(display (A 3 3))
 
