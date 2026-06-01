@@ -41,20 +41,29 @@ Fib(n) = (φⁿ − ψⁿ)/√5. |#
 
   Part 2: Proof that |ψⁿ/√5| < 1/2
 
-    Base case:
-    |ψ/√5| < 1/2
-    ⟺ |(1−√5)/2)/√5| < 1/2
-    ⟺ |(1−√5)/2√5| < 1/2
-    ⟺ |(1−√5)/√5| < 1
-    ⟺ |1/√5 − √5/√5| < 1
-    ⟺ |1/√5 − 1| < 1
+    Establish bounds for |ψ|:
+      √4 < √5 < √9
+      ⇒ 2 < √5 < 3
+      ⇒ -3 < -√5 < -2
+      ⇒ 1 - 3 < 1 - √5 < 1 - 2
+      ⇒ -2 < 1 - √5 < -1
+      ⇒ -1 < (1 - √5)/2 < -1/2
+      ⇒ -1 < ψ < -1/2
+      ⇒ 1/2 < |ψ| < 1
 
-    1 < 2√5, which is true. 
-    
-    Next: 
-    |ψ| = (√5−1)/2 < 1, so for all n ≥ 1:
-    |ψⁿ/√5| = |ψ|ⁿ⁻¹ · |ψ/√5| < 1 · 1/2 = 1/2.
+    Bound the terms for any n ≥ 0:
+      Since |ψ| < 1 ⇒ |ψⁿ| ≤ 1
+      Since √5 > 2 ⇒ 1/√5 < 1/2
+
+    Combine terms:
+      |ψⁿ/√5| = |ψⁿ| · 1/√5
+      Since |ψⁿ| ≤ 1 and 1/√5 < 1/2:
+      |ψⁿ| · 1/√5 < 1 · 1/2
+      ⇒ |ψⁿ/√5| < 1/2
 
   Conclusion
 
-    Fib(n) = φⁿ/√5 − ψⁿ/√5, so the distance between Fib(n) and φⁿ/√5 is exactly |ψⁿ/√5| < 1/2. Since Fib(n) is an integer and no other integer is within 1/2 of φⁿ/√5, it follows that Fib(n) is the nearest integer to φⁿ/√5. □ |#
+    Fib(n) = φⁿ/√5 − ψⁿ/√5, so the distance between Fib(n) and 
+    φⁿ/√5 is exactly |ψⁿ/√5| < 1/2. Since Fib(n) is an integer 
+    and no other integer is within 1/2 of φⁿ/√5, it follows that 
+    Fib(n) is the nearest integer to φⁿ/√5. |#
