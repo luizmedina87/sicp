@@ -67,10 +67,10 @@
   <body>
     <h1>SICP Exercise 1.14 — (count-change 11)</h1>
     <h2>
-      Exercise 1.14: Draw the tree illustrating the process gen-<br>
-      erated by the count-change procedure of Section 1.2.2 in<br>
-      making change for 11 cents. What are the orders of growth<br>
-      of the space and number of steps used by this process as<br>
+      Exercise 1.14: Draw the tree illustrating the process gen-<br />
+      erated by the count-change procedure of Section 1.2.2 in<br />
+      making change for 11 cents. What are the orders of growth<br />
+      of the space and number of steps used by this process as<br />
       the amount to be changed increases?
     </h2>
     <svg id="tree" xmlns="http://www.w3.org/2000/svg"></svg>
@@ -79,74 +79,39 @@
         return { label, left, right };
       }
 
-      // Shared subtrees (recreated as separate objects for layout)
-      function leaf0() {
-        return n("0");
-      }
-      function leaf1() {
-        return n("1");
+      // Translates the SICP (first-denomination) function
+      function getDenomination(kindsOfCoins) {
+        const coins = [0, 1, 5, 10, 25, 50]; // 1-indexed to match SICP
+        return coins[kindsOfCoins];
       }
 
-      function s01() {
-        return n("0,1", leaf0(), leaf1());
-      }
-      function s11() {
-        return n("1,1", leaf0(), s01());
-      }
-      function sm42() {
-        return n("-4,2", leaf0());
-      }
-      function s12() {
-        return n("1,2", s11(), sm42());
+      // Translates the SICP (cc amount kinds-of-coins) function into a tree builder
+      function buildTree(amount, kindsOfCoins) {
+        // cond 1: (= amount 0)
+        if (amount === 0) {
+          return n("1");
+        }
+        // cond 2: (or (< amount 0) (= kinds-of-coins 0))
+        if (amount < 0 || kindsOfCoins === 0) {
+          return n("0");
+        }
+
+        // else branch
+        const left = buildTree(amount, kindsOfCoins - 1);
+        const right = buildTree(
+          amount - getDenomination(kindsOfCoins),
+          kindsOfCoins,
+        );
+
+        return n(`${amount},${kindsOfCoins}`, left, right);
       }
 
-      function s21() {
-        return n("2,1", n("2,0", leaf0()), s11());
-      }
-      function s31() {
-        return n("3,1", n("3,0", leaf0()), s21());
-      }
-      function s41() {
-        return n("4,1", n("4,0", leaf0()), s31());
-      }
-      function s51() {
-        return n("5,1", n("5,0", leaf0()), s41());
-      }
-      function s61() {
-        return n("6,1", n("6,0", leaf0()), s51());
-      }
-      function s71() {
-        return n("7,1", n("7,0", leaf0()), s61());
-      }
-      function s81() {
-        return n("8,1", n("8,0", leaf0()), s71());
-      }
-      function s91() {
-        return n("9,1", n("9,0", leaf0()), s81());
-      }
-      function s101() {
-        return n("10,1", n("10,0", n("9,0", leaf0())), s91());
-      }
+      // Generate the tree dynamically
+      const tree = buildTree(11, 5);
 
-      const tree = n(
-        "11,5",
-        n(
-          "11,4",
-          n(
-            "11,3",
-            n(
-              "11,2",
-              n("11,1", n("11,0", leaf0()), s101()),
-              n("6,2", s61(), s12()),
-            ),
-            n("1,3", s12(), n("-9,3", leaf0())),
-          ),
-          n("-14,4", leaf0()),
-        ),
-        n("-39,5", leaf0()),
-      );
-
-      // Reingold-Tilford layout
+      // ==========================================
+      // Layout and Rendering Logic (Unchanged)
+      // ==========================================
       const R = 16;
       const LEVEL_H = 50;
       let counter = 0;
@@ -215,6 +180,7 @@
         if (node.label === "0") cls += " leaf-zero";
         if (node.label === "1") cls += " leaf-one";
         g.setAttribute("class", cls);
+
         const circle = document.createElementNS(
           "http://www.w3.org/2000/svg",
           "circle",
@@ -223,6 +189,7 @@
         circle.setAttribute("cy", cy(node));
         circle.setAttribute("r", R);
         g.appendChild(circle);
+
         const text = document.createElementNS(
           "http://www.w3.org/2000/svg",
           "text",
@@ -232,6 +199,7 @@
         text.textContent = node.label;
         g.appendChild(text);
         svg.appendChild(g);
+
         drawNodes(node.left);
         drawNodes(node.right);
       }
