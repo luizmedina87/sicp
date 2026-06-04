@@ -59,4 +59,43 @@ maximum depth is 5+n. Since the initial overhead of dropping
 through the coin types is a constant (5), it is dropped in
 asymptotic analysis. Thus, the order of growth of space is
 Θ(n), which is linear in the amount.
+
+
+PART 3: ORDERS OF GROWTH OF NUMBER OF STEPS
+
+The recursive algorithm for count-change recursively explores trees of possibilities, one containing
+a denomination of coin, and one not containing it. This suggests that at the very least, every node 
+has the potential to explore trees of depth n/d_i, where d_i is the denomination of coin i. This tree 
+will be explored in Theta(n/d_i) steps, which is equal do Theta(n). Since this will be done for all
+denominations, we expect the number of steps to grow as Theta(n^k), where n is the amount to be 
+analyzed and k is the number of kinds of coins. We therefore use a proof by induction to ascertain if
+that's the case.
+
+Base:
+The base was already soft proven on the preamble. The algorithm explores a tree which stops in the 
+following leaves:
+
+T(0,k) = 1 (1 step)
+T(n,0) = 0 (1 step)
+
+As a base case, we focus on what happens with T(n,1):
+
+T(n, 1) = T(n, 0) + T(n-1, 1)
+        = T(n, 0) + T(n-1, 0) + T(n-2, 1)
+        ...
+        = T(n, 0) + T(n-1, 0) + T(n-2, 0) + ... + T(n-n, 1)
+
+So every node gets unpacked n times until reaching the final T(0,k) leave, with n T(n,0) stubs for
+every unpacking (accounting for dead ends).
+
+This leads to a total 2n + 1 nodes explored (the +1 accounting for the T(n,1) itself), which is Θ(n).
+
+Induction:
+
+
+
+          
+          
+          
+
 |#
