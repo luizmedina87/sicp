@@ -63,20 +63,23 @@ asymptotic analysis. Thus, the order of growth of space is
 
 PART 3: ORDERS OF GROWTH OF NUMBER OF STEPS
 
-The recursive algorithm for count-change recursively explores trees of possibilities, one containing
-a denomination of coin, and one not containing it. This suggests that at the very least, every node 
-has the potential to explore trees of depth n/d_i, where d_i is the denomination of coin i. This tree 
-will be explored in Theta(n/d_i) steps, which is equal do Theta(n). Since this will be done for all
-denominations, we expect the number of steps to grow as Theta(n^k), where n is the amount to be 
-analyzed and k is the number of kinds of coins. We therefore use a proof by induction to ascertain if
-that's the case.
+The recursive algorithm for count-change recursively explores 
+trees of possibilities, one containing a denomination of coin, 
+and one not containing it. This suggests that at the very least, 
+every node has the potential to explore trees of depth n/d_i, 
+where d_i is the denomination of coin i. This tree will be 
+explored in Theta(n/d_i) steps, which is equal do Theta(n). Since
+this will be done for all denominations, we expect the number of 
+steps to grow as Theta(n^k), where n is the amount to be analyzed
+and k is the number of kinds of coins. We therefore use a proof 
+by induction to ascertain if that's the case.
 
 Base:
-The base was already soft proven on the preamble. The algorithm explores a tree which stops in the 
-following leaves:
+The base was already soft proven on the preamble. The algorithm 
+explores a tree which stops in the following leaves:
 
 T(0,k) = 1 (1 step)
-T(i<0,k) = 0 (1 step)
+T(<0,k) = 0 (1 step)
 T(n,0) = 0 (1 step)
 
 As a base case, we focus on what happens with T(n,1):
@@ -86,10 +89,12 @@ T(n, 1) = T(n, 0) + T(n-1, 1)
         ...
         = T(n, 0) + T(n-1, 0) + T(n-2, 0) + ... + T(n-n, 1)
 
-So every node gets unpacked n times until reaching the final T(0,k) leave, with n T(n,0) stubs for
-every unpacking (accounting for dead ends).
+So every node gets unpacked n times until reaching the final 
+T(0,k) leave, with n T(n,0) stubs for every unpacking (accounting
+for dead ends).
 
-This leads to a total 2n + 1 nodes explored (the +1 accounting for the T(n,1) itself), which is Θ(n).
+This leads to a total 2n + 1 nodes explored (the +1 accounting 
+for the T(n,1) itself), which is Θ(n).
 
 Inductive step on k:
 
@@ -100,31 +105,36 @@ T(n, k+1) = T(n, k) + T(n - d_{k+1}, k+1)
           = T(n, k) + T(n - d_{k+1}, k) + T(n - 2d_{k+1}, k+1)
           = T(n, k) + T(n - d_{k+1}, k) + T(n - 2d_{k+1}, k) + T(n - 3d_{k+1}, k+1)
           = T(n, k) + T(n - d_{k+1}, k) + T(n - 2d_{k+1}, k) + T(n - 3d_{k+1}, k) + ... + T(n - (n/d_{k+1})d_{k+1}, k+1)
-          = T(n, k) + T(n - d_{k+1}, k) + T(n - 2d_{k+1}, k) + T(n - 3d_{k+1}, k) + ... + {1 or 0, which is just one step}
+          = T(n, k) + T(n - d_{k+1}, k) + T(n - 2d_{k+1}, k) + T(n - 3d_{k+1}, k) + ... + {1 or 0}
 
                ⌊n/d_{k+1}⌋
           =        Σ        T(n - i·d_{k+1}, k)
                  i = 0
 
-Since T(n, k) is Θ(n^k) per induction hypothesis, T(n - i·d_{k+1}, k) is Θ((n - i·d_{k+1})^k), which is 
-still Θ(n^k). Substituting the inductive hypothesis:
+Since T(n, k) is Θ(n^k) per induction hypothesis, 
+T(n - i·d_{k+1}, k) is Θ((n - i·d_{k+1})^k), which is still 
+Θ(n^k). Substituting the inductive hypothesis:
 
                ⌊n/d_{k+1}⌋
           =        Σ        Θ((n - i·d_{k+1})^k)
                  i = 0
 
-To prove the summation is Θ(n^k), we can bound the sum from above and below using the total number of terms, 
-which is ⌊n/d_{k+1}⌋ + 1 terms. Since the denomination d_{k+1} is a fixed constant, the number of terms 
+To prove the summation is Θ(n^k), we can bound the sum from above
+and below using the total number of terms, which is 
+⌊n/d_{k+1}⌋ + 1 terms. Since the denomination d_{k+1} is a fixed
+constant, the number of terms 
 scales linearly as Θ(n).
 
 - Upper Bound (Big O):
 
-For all terms in the summation, i ≥ 0, which implies that the largest possible value for any single 
-term occurs at i = 0. Therefore:
+For all terms in the summation, i ≥ 0, which implies that the 
+largest possible value for any single term occurs at i = 0. 
+Therefore:
 
 (n - i·d_{k+1})^k ≤ n^k
 
-Replacing every term in the summation with this maximum value yields the upper bound:
+Replacing every term in the summation with this maximum value 
+yields the upper bound:
 
              ⌊n/d_{k+1}⌋
 T(n, k+1) ≤      Σ       Θ(n^k)
@@ -136,15 +146,19 @@ T(n, k+1) ≤      Σ       Θ(n^k)
 
 - Lower Bound (Big Ω):
 
-To find a lower bound, we can ignore the smaller second half of the summation and sum only over the 
-first half of the terms, where i ranges from 0 to ⌊n/(2·d_{k+1})⌋. This half still contains roughly 
-n/(2·d_{k+1}) terms, which is Ω(n) terms.
+To find a lower bound, we can ignore the smaller second half of 
+the summation and sum only over the first half of the terms, 
+where i ranges from 0 to ⌊n/(2·d_{k+1})⌋. This half still 
+contains roughly n/(2·d_{k+1}) terms, which is Ω(n) terms.
 
-For any term within this first half, the maximum amount subtracted from n is n/2, meaning:
+For any term within this first half, the maximum amount 
+subtracted from n is n/2, meaning:
 
 (n - i·d_{k+1})^k ≥ (n - n/2)^k = (n/2)^k = (1/2^k)·n^k
 
-Since 1/2^k is a constant factor, each of these terms is Ω(n^k). Summing these Ω(n) terms provides a lower bound for the total sum:
+Since 1/2^k is a constant factor, each of these terms is Ω(n^k). 
+Summing these Ω(n) terms provides a lower bound for the total 
+sum:
 
             ⌊n/(2·d_{k+1})⌋
 T(n, k+1) ≥        Σ           Ω(n^k)
@@ -156,14 +170,15 @@ T(n, k+1) ≥        Σ           Ω(n^k)
 
 - Conclusion (Big Θ):
 
-Since the number of steps T(n, k+1) is simultaneously bounded above by O(n^{k+1}) and bounded below by Ω(n^{k+1}), it is tightly bounded by Big Theta:
+Since the number of steps T(n, k+1) is simultaneously bounded 
+above by O(n^{k+1}) and bounded below by Ω(n^{k+1}), it is 
+tightly bounded by Big Theta:
+
 T(n, k+1) = Θ(n^{k+1})
-This completes the inductive step. By the principle of mathematical induction, the number of steps required to change an amount n using k kinds of coins is Θ(n^k).
-For this specific exercise, the number of coin types is fixed at 5 (k=5), meaning the order of growth for the number of steps is Θ(n^5).
 
-
-          
-          
-          
-
+This completes the inductive step. By the principle of 
+mathematical induction, the number of steps required to change an
+amount n using k kinds of coins is Θ(n^k). For this specific 
+exercise, the number of coin types is fixed at 5 (k=5), meaning 
+the order of growth for the number of steps is Θ(n^5).
 |#
