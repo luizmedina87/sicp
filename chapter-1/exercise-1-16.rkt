@@ -16,8 +16,6 @@ that remains unchanged from state to state is a powerful
 way to think about the design of iterative algorithms.)
 |#
 
-
-
 ; ANSWER:
 (define (square x)
 	(* x x))
@@ -29,9 +27,8 @@ way to think about the design of iterative algorithms.)
 	(expt-iter 1 b n))
 
 (define (expt-iter a b n)
-	(cond ((= n 0) 1)
+	(cond ((= n 0) a)
 		  ((< n 0) (expt-iter a (/ 1 b) (- n)))
-		  ((= n 1) (* a b))
 		  ((odd? n) (expt-iter (* a b) b (- n 1)))
 		  (else (expt-iter a (square b) (/ n 2)))))
 
