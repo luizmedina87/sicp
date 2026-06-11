@@ -17,14 +17,27 @@ way to think about the design of iterative algorithms.)
 |#
 
 
+
+; ANSWER:
 (define (square x)
 	(* x x))
 
-(define (even? n)
-  (= (remainder n 2) 0))
+(define (odd? n)
+  (= (remainder n 2) 1))
 
-(define (fast-expt b n)
-  (cond ((= n 0) 1)
-				((even? n) (square (fast-expt b (/ n 2))))
-				(else (* b (fast-expt b (- n 1))))))
+(define (expt b n)
+	(expt-iter 1 b n))
 
+(define (expt-iter a b n)
+	(cond ((= n 0) 1)
+		  ((< n 0) (expt-iter a (/ 1 b) (- n)))
+		  ((= n 1) (* a b))
+		  ((odd? n) (expt-iter (* a b) b (- n 1)))
+		  (else (expt-iter a (square b) (/ n 2)))))
+
+; TESTS
+(= (expt 5 0) 1)
+(= (expt 3 1) 3)
+(= (expt 2 4) 16)
+(= (expt 2 5) 32)
+(= (expt 2 -2) 1/4)
