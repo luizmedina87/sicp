@@ -1,5 +1,5 @@
 #lang sicp
-(#%require racket/trace)
+; (#%require racket/trace)
 
 #| Exercise 1.18: Using the results of Exercise 1.16 and Exer-
 cise 1.17, devise a procedure that generates an iterative pro-
