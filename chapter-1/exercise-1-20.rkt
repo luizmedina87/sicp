@@ -73,40 +73,40 @@ the remainder operation is only performed 4 times.
 
 2. APLICATIVE ORDER EVALUTAION
 
-; Start
-(gcd 206 40)
+	; Start
+	(gcd 206 40)
 
-; Step 1
-; a: 206
-; b: 40
-(if (= 40 0)
-		206
-		(gcd 40 6)) ; Evaluates (remainder 206 40)
+	; Step 1
+	; a: 206
+	; b: 40
+	(if (= 40 0)
+			206
+			(gcd 40 6)) ; Evaluates (remainder 206 40)
 
-; Step 2
-; a: 40
-; b: 6
-(if (= 6 0)
-		40
-		(gcd 6 4)) ; Evaluates (remainder 40 6)
+	; Step 2
+	; a: 40
+	; b: 6
+	(if (= 6 0)
+			40
+			(gcd 6 4)) ; Evaluates (remainder 40 6)
 
-; Step 3
-; a: 6
-; b: 4
-(if (= 4 0)
-		6
-		(gcd 4 2)) ; Evaluates (remainder 6 4)
+	; Step 3
+	; a: 6
+	; b: 4
+	(if (= 4 0)
+			6
+			(gcd 4 2)) ; Evaluates (remainder 6 4)
 
-; Step 4
-; a: 4
-; b: 2
-(if (= 2 0)
-		4
-		(gcd 2 0)) ; Evaluates (remainder 4 2)
+	; Step 4
+	; a: 4
+	; b: 2
+	(if (= 2 0)
+			4
+			(gcd 2 0)) ; Evaluates (remainder 4 2)
 
-; Step 5
-; a: 2
-; b: 0
-(if (= 0 0)
-		2 ; Returns 2
-		(gcd 0 (remainder 2 0))) ; Doesn't get evaluated |#
+	; Step 5
+	; a: 2
+	; b: 0
+	(if (= 0 0)
+			2 ; Returns 2
+			(gcd 0 (remainder 2 0))) ; Doesn't get evaluated |#
