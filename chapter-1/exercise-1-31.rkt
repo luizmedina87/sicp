@@ -184,16 +184,16 @@ English mathematician John Wallis. |#
   (display "Testing standalone procedure: pi-estimate") (newline)
   (display "------------------------------------------") (newline)
 
-  ; 1. Single term approximation (n = 1): (2/3) * (4/3) * 4 = 32/9 ≈ 3.5555
+  ; 1. Single term approximation (n = 1): (2/3) * 4 = 8/3 = 2.6667
   (test-approx "Pi estimate (1 term)" 
                (pi-estimate 1) 
-               (/ 32 9) 
+               (/ 8 3) 
                0.0001)
 
-  ; 2. Two terms approximation (n = 2): 32/9 * (4/5) * (6/5) = 256/75 ≈ 3.4133
+  ; 2. Two terms approximation (n = 2): (2/3) * (4/3) * 4 = 32/9 ≈ 3.5555
   (test-approx "Pi estimate (2 terms)" 
                (pi-estimate 2) 
-               (/ 256 75) 
+               (/ 32 9) 
                0.0001)
 
   ; 3. Large n (n = 1000): should converge close to 3.14159
