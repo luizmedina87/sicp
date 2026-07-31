@@ -73,7 +73,8 @@ product procedures:
 																null-value 
 																term 
 																(next a) 
-																next b))))
+																next
+																b))))
 
 (define (accumulate-iter combiner null-value term a next b)
 	(define (iter a result)
