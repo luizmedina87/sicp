@@ -22,4 +22,20 @@ a. Show that sum and product (Exercise 1.31) are both
 b. If your accumulate procedure generates a recursive
    process, write one that generates an iterative process.
    If it generates an iterative process, write one that gen-
-   erates a recursive process. |#
+   erates a recursive process. 
+   
+
+Note: the exercise is refering to the following summation and
+product procedures:
+
+(define (sum term a next b)
+  (if (> a b)
+      0
+      (+ (term a)
+         (sum term (next a) next b)))) 
+         
+(define (product term a next b)
+	(if (> a b)
+		 1
+		 (* (term a)
+			 (product term (next a) next b)))) |#
