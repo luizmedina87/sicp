@@ -30,13 +30,31 @@ What happens when Alyssa attempts to use this to compute
 square roots? Explain.
 |#
 
+
+#|
+ANSWER:
+
+When new-if is used, Scheme's applicative-order evaluation 
+causes all three arguments — the predicate, the then-clause, 
+and the else-clause — to be evaluated before new-if is 
+applied. This means that (sqrt-iter (improve guess x) x) is 
+always evaluated regardless of whether the predicate is 
+satisfied, causing infinite recursion.
+
+The built-in if avoids this problem because it is a special 
+form, not a regular procedure. Special forms do not follow 
+applicative-order evaluation — they evaluate the predicate 
+first, and only then evaluate either the then-clause or the 
+else-clause, never both. By turning if into an ordinary 
+procedure, Alyssa loses this conditional evaluation behavior, 
+and the program loops forever. |#
+
+#| 
 ; TEST FUNCTIONS
+(Will enter an infinite loop)
 
-(define (square x)
-  (* x x))
-
-(define (average x y)
-  (/ (+ x y) 2))
+(#%provide (all-defined))
+(#%require "./lib/math.rkt")
 
 (define (improve guess x)
   (average guess (/ x guess)))
@@ -57,22 +75,4 @@ square roots? Explain.
   (sqrt-iter 1.0 x))
 
 (sqrt 4)
-
-#|
-ANSWER:
-
-When new-if is used, Scheme's applicative-order evaluation 
-causes all three arguments — the predicate, the then-clause, 
-and the else-clause — to be evaluated before new-if is 
-applied. This means that (sqrt-iter (improve guess x) x) is 
-always evaluated regardless of whether the predicate is 
-satisfied, causing infinite recursion.
-
-The built-in if avoids this problem because it is a special 
-form, not a regular procedure. Special forms do not follow 
-applicative-order evaluation — they evaluate the predicate 
-first, and only then evaluate either the then-clause or the 
-else-clause, never both. By turning if into an ordinary 
-procedure, Alyssa loses this conditional evaluation behavior, 
-and the program loops forever.
 |#
