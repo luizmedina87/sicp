@@ -96,3 +96,7 @@ it return 0. |#
 (run-test "Carmichael Number" 561 false)
 (run-test "Carmichael Number" 1105 false)
 (run-test "Carmichael Number" 1729 false)
+
+; =========================== EXPORT ============================
+
+(#%provide fast-prime? square)

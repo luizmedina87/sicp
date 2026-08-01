@@ -11,7 +11,7 @@ trate the process generated in evaluating (gcd 206 40) and
 indicate the remainder operations that are actually per-
 formed. How many remainder operations are actually per-
 formed in the normal-order evaluation of (gcd 206 40)?
-In the applicative-order evaluation?
+In the applicative-order evaluation? |#
 
 (define (gcd a b)
   (if (= b 0)
@@ -19,7 +19,7 @@ In the applicative-order evaluation?
       (gcd b (remainder a b))))
 
 
-ANSWER:
+#| ANSWER:
 
 As shown in the steps below, using normal-order evaluation for 
 (gcd 206 40) results in 18 total remainder operations. The 
@@ -110,3 +110,5 @@ the remainder operation is only performed 4 times.
 	(if (= 0 0)
 			2 ; Returns 2
 			(gcd 0 (remainder 2 0))) ; Doesn't get evaluated |#
+
+(#%provide gcd)
