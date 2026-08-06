@@ -51,6 +51,7 @@ If it generates an iterative process, write one that
 generates a recursive process.
 |#
 
+
 (define (cont-frac-rec n d k)
   (define (rec-aux i)
     (if (> i k)
@@ -64,6 +65,7 @@ generates a recursive process.
         n-d-k
         (iter-aux (- i 1) (/ (n i) (+ (d i) n-d-k)))))
   (iter-aux k 0))
+
 
 #| (define (count-est-phi-inv procedure)
   (define (approx-phi-inv k)
@@ -85,3 +87,23 @@ generates a recursive process.
 
 (display "[iteration] ")
 (count-est-phi-inv cont-frac-iter) |#
+
+
+#| ANSWER
+
+1. Minimum k for 4 Decimal Places:
+   To approximate 1/phi (~0.61803398) with an error less than 0.0001, 
+   k must be at least 10:
+
+     k = 9  : 34/55  ~ 0.6181818  (error ~ 0.000148, exceeds 0.0001)
+     k = 10 : 55/89  ~ 0.6179775  (error ~ 0.000056, strictly < 0.0001)
+     k = 11 : 89/144 ~ 0.6180555  (error ~ 0.000021)
+
+2. Process Comparison:
+   - Part A (`cont-frac-rec`): Generates a RECURSIVE process.
+     It evaluates top-down from i = 1 to k, building up a chain of deferred 
+     additions and divisions proportional to k before unwinding.
+
+   - Part B (`cont-frac-iter`): Generates an ITERATIVE process.
+     It evaluates bottom-up from i = k down to 1, carrying the running term 
+     in an accumulator state parameter (`n-d-k`), executing in O(1) space. |#
