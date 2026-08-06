@@ -1,5 +1,8 @@
 #lang sicp
 
+(#%require "./lib/math.rkt")
+(#%provide (all-defined))
+
 #| Exercise 1.22: Most Lisp implementations include a prim-
 itive called runtime that returns an integer that speciﬁes
 the amount of time the system has been running (mea-
@@ -51,36 +54,25 @@ the number of steps required for the computation? |#
 	(display elapsed-time))
 
 ; FROM BOOK:
-(define (smallest-divisor n) (find-divisor n 2))
+(define (smallest-divisor-naive n) (find-divisor-naive n 2))
 
-(define (find-divisor n test-divisor)
+(define (find-divisor-naive n test-divisor)
   (cond ((> (square test-divisor) n) n)
         ((divides? test-divisor n) test-divisor)
-        (else (find-divisor n (+ test-divisor 1)))))
-
-(define (square x)
-  (* x x))
-
-(define (divides? a b)
-  (= (remainder b a) 0))
+        (else (find-divisor-naive n (+ test-divisor 1)))))
 
 (define (prime? n)
-	(= n (smallest-divisor n)))
+	(= n (smallest-divisor-naive n)))
 
 ; ANSWER
-(define (search-for-primes start count) 
+(define (search-for-primes start count)
 	(cond ((= count 0) (newline))
 				((even? start) (search-for-primes (+ start 1) count))
 				((prime? start)
 					(timed-prime-test start)
 					(search-for-primes (+ start 2) (- count 1)))
-				(else (search-for-primes (+ start 2) count)))
-)
+				(else (search-for-primes (+ start 2) count))))
 
-(search-for-primes 1000 3)
-(search-for-primes 10000 3)
-(search-for-primes 100000 3)
-(search-for-primes 1000000 3)
 
 #| ANSWER:
 
