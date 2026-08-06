@@ -5,3 +5,6 @@
 compiled/
 *.zo
 *.dep
+
+# VS Code
+.vscode/
