@@ -1,6 +1,7 @@
 #lang sicp
 
 (#%provide (all-defined))
+(#%require "./math.rkt")
 
 
 (define (assert-equal test-name expected actual)
@@ -17,7 +18,7 @@
         (display "    Actual:   ") (display actual)   (newline))))
 
 (define (assert-close test-name expected actual tolerance)
-  (if (< (abs (- expected actual)) tolerance)
+  (if (close expected actual tolerance)
       (begin
         (display " [PASS] ")
         (display test-name)

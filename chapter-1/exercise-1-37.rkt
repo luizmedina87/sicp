@@ -1,5 +1,8 @@
 #lang sicp
 
+(#%provide (all-defined))
+(#%require "./lib/math.rkt")
+
 
 #| Exercise 1.37: a. An infinite continued fraction is 
 an expression of the form:
@@ -47,3 +50,38 @@ process, write one that generates an iterative process.
 If it generates an iterative process, write one that 
 generates a recursive process.
 |#
+
+(define (cont-frac-rec n d k)
+  (define (rec-aux i)
+    (if (> i k)
+        0
+        (/ (n i) (+ (d i) (rec-aux (+ i 1))))))
+  (rec-aux 1))
+
+(define (cont-frac-iter n d k)
+  (define (iter-aux i n-d-k)
+    (if (< i 1)
+        n-d-k
+        (iter-aux (- i 1) (/ (n i) (+ (d i) n-d-k)))))
+  (iter-aux k 0))
+
+#| (define (count-est-phi-inv procedure)
+  (define (approx-phi-inv k)
+    (procedure (lambda (i) 1.0)
+               (lambda (i) 1.0)
+               k))
+  (define (find-k k)
+    (let ((result (approx-phi-inv k)))
+         (if (close result 0.6180 0.0001)
+             (begin
+               (display "Accurate to 4 decimal places at k = ")
+               (display k)
+               (newline))
+             (find-k (+ k 1)))))
+  (find-k 1))
+
+(display "[recursion] ")
+(count-est-phi-inv cont-frac-rec)
+
+(display "[iteration] ")
+(count-est-phi-inv cont-frac-iter) |#

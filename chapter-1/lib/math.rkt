@@ -5,6 +5,8 @@
 
 (define (average x y) (/ (+ x y) 2))
 
+(define (close a b tolerance) (< (abs (- a b)) tolerance))
+
 (define (cube x) (* x x x))
 
 (define (divides? a b) (= (remainder b a) 0))
@@ -21,3 +23,4 @@
 (define (smallest-divisor n) (find-divisor n 2))
 
 (define (square x) (* x x))
+
